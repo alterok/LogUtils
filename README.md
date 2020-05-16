@@ -43,7 +43,7 @@ LogUtils.getInstance()
         .allowInfo(true)                        //enable or disable the info logging. Default value is true.
         .allowWarning(true)                     //enable or disable the warning logging. Default value is true.
         .allowError(true)                       //enable or disable the error logging. Default value is true.
-        .out()                                  //prints all logging states in the logCat
+        .toLogcat()                             //prints all logging states in the logCat
 ```
 
 Calling below code with BuildConfig.DEBUG as an argument is recommended as this prevents logging in the release builds.
