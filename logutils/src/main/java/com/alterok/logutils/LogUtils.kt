@@ -2,69 +2,133 @@ package com.alterok.logutils
 
 import android.util.Log
 
-object LogUtils {
-    private const val TAG = "LogUtils"
+class LogUtils private constructor() {
+    private var isLogging: Boolean = true
 
-    @JvmStatic
-    var isInDebuggingMode: Boolean = BuildConfig.DEBUG
+    private var verbose: Boolean = true
+    private var debug: Boolean = true
+    private var info: Boolean = true
+    private var warning: Boolean = true
+    private var error: Boolean = true
 
-    @JvmStatic
-    var show_d: Boolean = true
-
-    @JvmStatic
-    var show_i: Boolean = true
-
-    @JvmStatic
-    var show_w: Boolean = true
-
-    @JvmStatic
-    var show_e: Boolean = true
-
-    @JvmStatic
-    fun d(msg: String) {
-        if (isInDebuggingMode && show_d)
-            Log.d(TAG, msg)
+    /**
+     * Enable/Disable the entire LogUtils logging functionality.
+     * It is recommended to pass your project's BuildConfig.DEBUG flag as an argument to prevent logging in release builds.
+     * @param isLogging When set to false, this prevents all types(Log.v/d/i/w/e) of logging.
+     */
+    fun setLogging(isLogging: Boolean): LogUtils {
+        this.isLogging = isLogging
+        return this
     }
 
-    @JvmStatic
-    fun d(tag: String, msg: String) {
-        if (isInDebuggingMode && show_d)
-            Log.d(tag, msg)
+    fun allowVerbose(allow: Boolean): LogUtils {
+        this.verbose = allow
+        return this
     }
 
-    @JvmStatic
-    fun i(msg: String) {
-        if (isInDebuggingMode && show_i)
-            Log.i(TAG, msg)
+    fun allowDebug(allow: Boolean): LogUtils {
+        this.debug = allow
+        return this
     }
 
-    @JvmStatic
-    fun i(tag: String, msg: String) {
-        if (isInDebuggingMode && show_i)
-            Log.i(tag, msg)
+    fun allowInfo(allow: Boolean): LogUtils {
+        this.info = allow
+        return this
     }
 
-    @JvmStatic
-    fun w(msg: String) {
-        if (isInDebuggingMode && show_w)
-            Log.w(TAG, msg)
+    fun allowWarning(allow: Boolean): LogUtils {
+        this.warning = allow
+        return this
     }
 
-    @JvmStatic
-    fun w(tag: String, msg: String) {
-        if (isInDebuggingMode && show_w)
-            Log.w(tag, msg)
+    fun allowError(allow: Boolean): LogUtils {
+        this.error = allow
+        return this
     }
 
-    @JvmStatic
-    fun e(msg: String) {
-        if (isInDebuggingMode && show_e)
-            Log.e(TAG, msg)
+    /**
+     * prints all the logging states to the logcat.
+     */
+    fun out() {
+        v(toString())
     }
 
-    @JvmStatic
-    fun e(tag: String, msg: String) {
-        if (isInDebuggingMode && show_e)
-            Log.e(tag, msg)
+    override fun toString(): String {
+        return "LogUtils(isLogging=$isLogging, verbose=$verbose, debug=$debug, info=$info, warning=$warning, error=$error)"
+    }
+
+    companion object {
+        private const val TAG = "LogUtils"
+
+        private const val TAG_VERBOSE = "LogUtils[VERBOSE]"
+        private const val TAG_DEBUG = "LogUtils[DEBUG]"
+        private const val TAG_INFO = "LogUtils[INFO]"
+        private const val TAG_WARNING = "LogUtils[WARNING]"
+        private const val TAG_ERROR = "LogUtils[ERROR]"
+
+        private var sInstance: LogUtils? = null
+        private lateinit var instance: LogUtils
+
+        fun getInstance(): LogUtils {
+            if (sInstance == null)
+                sInstance = createInstance()
+
+            return sInstance!!
+        }
+
+        @Synchronized
+        private fun createInstance(): LogUtils {
+            if (sInstance == null)
+                sInstance = LogUtils()
+
+            instance = sInstance!!
+
+            return sInstance!!
+        }
+
+        fun v(msg: String) {
+            v(TAG_VERBOSE, msg)
+        }
+
+        fun v(tag: String, msg: String) {
+            if (instance.isLogging && instance.verbose)
+                Log.v(tag, msg)
+        }
+
+        fun d(msg: String) {
+            d(TAG_DEBUG, msg)
+        }
+
+        fun d(tag: String, msg: String) {
+            if (instance.isLogging && instance.debug)
+                Log.d(tag, msg)
+        }
+
+        fun i(msg: String) {
+            i(TAG_INFO, msg)
+        }
+
+        fun i(tag: String, msg: String) {
+            if (instance.isLogging && instance.info)
+                Log.i(tag, msg)
+        }
+
+        fun w(msg: String) {
+            w(TAG_WARNING, msg)
+        }
+
+        fun w(tag: String, msg: String) {
+            if (instance.isLogging && instance.warning)
+                Log.w(tag, msg)
+        }
+
+        fun e(msg: String) {
+            e(TAG_ERROR, msg)
+        }
+
+        fun e(tag: String, msg: String) {
+            if (instance.isLogging && instance.error)
+                Log.e(tag, msg)
+        }
     }
 }
