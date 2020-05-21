@@ -121,7 +121,7 @@ class LogUtils private constructor() {
          * @param msg The message you would like logged.
          */
         fun v(tag: String, msg: String) {
-            if (instance.isLogging && instance.verbose)
+            if (getInstance().isLogging && getInstance().verbose)
                 Log.v(tag, msg)
         }
 
@@ -140,7 +140,7 @@ class LogUtils private constructor() {
          * @param msg The message you would like logged.
          */
         fun d(tag: String, msg: String) {
-            if (instance.isLogging && instance.debug)
+            if (getInstance().isLogging && getInstance().debug)
                 Log.d(tag, msg)
         }
 
@@ -160,7 +160,7 @@ class LogUtils private constructor() {
          * @param msg The message you would like logged.
          */
         fun i(tag: String, msg: String) {
-            if (instance.isLogging && instance.info)
+            if (getInstance().isLogging && getInstance().info)
                 Log.i(tag, msg)
         }
 
@@ -180,7 +180,7 @@ class LogUtils private constructor() {
          * @param msg The message you would like logged.
          */
         fun w(tag: String, msg: String) {
-            if (instance.isLogging && instance.warning)
+            if (getInstance().isLogging && getInstance().warning)
                 Log.w(tag, msg)
         }
 
@@ -200,7 +200,7 @@ class LogUtils private constructor() {
          * @param msg The message you would like logged.
          */
         fun e(tag: String, msg: String) {
-            if (instance.isLogging && instance.error)
+            if (getInstance().isLogging && getInstance().error)
                 Log.e(tag, msg)
         }
     }
