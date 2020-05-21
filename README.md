@@ -2,6 +2,8 @@
 A simple log util class for managing android logging with Log.w/d/i/w/e priorities with separate switch flags for each priority.
 
 ## 1. Setup
+[![](https://jitpack.io/v/alterok/LogUtils.svg)](https://jitpack.io/#alterok/LogUtils)
+
 Add below code in your project level build.gradle file.
 ```groovy
 allprojects {
@@ -14,7 +16,7 @@ allprojects {
 Add below code in your app level build.gradle file.
 
 ```groovy
-implementation 'com.github.alterok:LogUtils:2.0.0'
+implementation 'com.github.alterok:LogUtils:2.0.1'
 ```
 ## 2. Usage
 
