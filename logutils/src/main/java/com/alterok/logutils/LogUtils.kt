@@ -2,14 +2,26 @@ package com.alterok.logutils
 
 import android.util.Log
 
-class LogUtils private constructor() {
-    private var isLogging: Boolean = true
+object LogUtils {
+    private const val TAG_VERBOSE = "LogUtils[VERBOSE]"
+    private const val TAG_DEBUG = "LogUtils[DEBUG]"
+    private const val TAG_INFO = "LogUtils[INFO]"
+    private const val TAG_WARNING = "LogUtils[WARNING]"
+    private const val TAG_ERROR = "LogUtils[ERROR]"
 
-    private var verbose: Boolean = true
-    private var debug: Boolean = true
-    private var info: Boolean = true
-    private var warning: Boolean = true
-    private var error: Boolean = true
+    var isLogging: Boolean = true
+        private set
+
+    var verbose: Boolean = true
+        private set
+    var debug: Boolean = true
+        private set
+    var info: Boolean = true
+        private set
+    var warning: Boolean = true
+        private set
+    var error: Boolean = true
+        private set
 
     /**
      * Enable or disable the entire LogUtils logging functionality.
@@ -61,6 +73,7 @@ class LogUtils private constructor() {
         return this
     }
 
+
     /**
      * Prints all the logging states to the logcat.
      */
@@ -72,136 +85,102 @@ class LogUtils private constructor() {
         return "LogUtils(isLogging=$isLogging, verbose=$verbose, debug=$debug, info=$info, warning=$warning, error=$error)"
     }
 
-    companion object {
-        private const val TAG = "LogUtils"
 
-        private const val TAG_VERBOSE = "LogUtils[VERBOSE]"
-        private const val TAG_DEBUG = "LogUtils[DEBUG]"
-        private const val TAG_INFO = "LogUtils[INFO]"
-        private const val TAG_WARNING = "LogUtils[WARNING]"
-        private const val TAG_ERROR = "LogUtils[ERROR]"
+    /**
+     * Sends a VERBOSE log message with default TAG = LogUtils&#91;VERBOSE&#93;
+     * @param msg The message you would like logged.
+     */
+    fun v(msg: String) {
+        v(TAG_VERBOSE, msg)
+    }
 
-        private var sInstance: LogUtils? = null
-        private lateinit var instance: LogUtils
+    /**
+     * Sends a VERBOSE log message.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg The message you would like logged.
+     */
+    fun v(tag: String, msg: String) {
+        if (isLogging && verbose)
+            Log.v(tag, msg)
+    }
 
+    /**
+     * Sends a DEBUG log message with default TAG = LogUtils&#91;DEBUG&#93;
+     * @param msg The message you would like logged.
+     */
+    fun d(msg: String) {
+        d(TAG_DEBUG, msg)
+    }
 
-        /**
-         * Returns an Instance of the LogUtils. Use it to enable or disable the various log priorities.
-         */
-        fun getInstance(): LogUtils {
-            if (sInstance == null)
-                sInstance = createInstance()
-
-            return sInstance!!
-        }
-
-        @Synchronized
-        private fun createInstance(): LogUtils {
-            if (sInstance == null)
-                sInstance = LogUtils()
-
-            instance = sInstance!!
-
-            return sInstance!!
-        }
-
-
-        /**
-         * Sends a VERBOSE log message with default TAG = LogUtils&#91;VERBOSE&#93;
-         * @param msg The message you would like logged.
-         */
-        fun v(msg: String) {
-            v(TAG_VERBOSE, msg)
-        }
-
-        /**
-         * Sends a VERBOSE log message.
-         * @param tag Used to identify the source of a log message.  It usually identifies
-         *        the class or activity where the log call occurs.
-         * @param msg The message you would like logged.
-         */
-        fun v(tag: String, msg: String) {
-            if (getInstance().isLogging && getInstance().verbose)
-                Log.v(tag, msg)
-        }
-
-        /**
-         * Sends a DEBUG log message with default TAG = LogUtils&#91;DEBUG&#93;
-         * @param msg The message you would like logged.
-         */
-        fun d(msg: String) {
-            d(TAG_DEBUG, msg)
-        }
-
-        /**
-         * Sends a DEBUG log message.
-         * @param tag Used to identify the source of a log message.  It usually identifies
-         *        the class or activity where the log call occurs.
-         * @param msg The message you would like logged.
-         */
-        fun d(tag: String, msg: String) {
-            if (getInstance().isLogging && getInstance().debug)
-                Log.d(tag, msg)
-        }
+    /**
+     * Sends a DEBUG log message.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg The message you would like logged.
+     */
+    fun d(tag: String, msg: String) {
+        if (isLogging && debug)
+            Log.d(tag, msg)
+    }
 
 
-        /**
-         * Sends a INFO log message with default TAG = LogUtils&#91;INFO&#93;
-         * @param msg The message you would like logged.
-         */
-        fun i(msg: String) {
-            i(TAG_INFO, msg)
-        }
+    /**
+     * Sends a INFO log message with default TAG = LogUtils&#91;INFO&#93;
+     * @param msg The message you would like logged.
+     */
+    fun i(msg: String) {
+        i(TAG_INFO, msg)
+    }
 
-        /**
-         * Sends a INFO log message.
-         * @param tag Used to identify the source of a log message.  It usually identifies
-         *        the class or activity where the log call occurs.
-         * @param msg The message you would like logged.
-         */
-        fun i(tag: String, msg: String) {
-            if (getInstance().isLogging && getInstance().info)
-                Log.i(tag, msg)
-        }
-
-
-        /**
-         * Sends a WARNING log message with default TAG = LogUtils&#91;WARNING&#93;
-         * @param msg The message you would like logged.
-         */
-        fun w(msg: String) {
-            w(TAG_WARNING, msg)
-        }
-
-        /**
-         * Sends a WARNING log message.
-         * @param tag Used to identify the source of a log message.  It usually identifies
-         *        the class or activity where the log call occurs.
-         * @param msg The message you would like logged.
-         */
-        fun w(tag: String, msg: String) {
-            if (getInstance().isLogging && getInstance().warning)
-                Log.w(tag, msg)
-        }
+    /**
+     * Sends a INFO log message.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg The message you would like logged.
+     */
+    fun i(tag: String, msg: String) {
+        if (isLogging && info)
+            Log.i(tag, msg)
+    }
 
 
-        /**
-         * Sends a ERROR log message with default TAG = LogUtils&#91;ERROR&#93;
-         * @param msg The message you would like logged.
-         */
-        fun e(msg: String) {
-            e(TAG_ERROR, msg)
-        }
+    /**
+     * Sends a WARNING log message with default TAG = LogUtils&#91;WARNING&#93;
+     * @param msg The message you would like logged.
+     */
+    fun w(msg: String) {
+        w(TAG_WARNING, msg)
+    }
 
-        /**
-         * Sends a ERROR log message.
-         * @param tag Used to identify the source of a log message.  It usually identifies
-         *        the class or activity where the log call occurs.
-         * @param msg The message you would like logged.
-         */
-        fun e(tag: String, msg: String) {
-            if (getInstance().isLogging && getInstance().error)
-                Log.e(tag, msg)
-        }
+    /**
+     * Sends a WARNING log message.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg The message you would like logged.
+     */
+    fun w(tag: String, msg: String) {
+        if (isLogging && warning)
+            Log.w(tag, msg)
+    }
+
+
+    /**
+     * Sends a ERROR log message with default TAG = LogUtils&#91;ERROR&#93;
+     * @param msg The message you would like logged.
+     */
+    fun e(msg: String) {
+        e(TAG_ERROR, msg)
+    }
+
+    /**
+     * Sends a ERROR log message.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg The message you would like logged.
+     */
+    fun e(tag: String, msg: String) {
+        if (isLogging && error)
+            Log.e(tag, msg)
     }
 }
