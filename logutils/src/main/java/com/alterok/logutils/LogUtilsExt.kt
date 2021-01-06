@@ -34,15 +34,16 @@ fun Any?.toInfoLog() {
 fun Any?.toInfoLog(tag: String) {
     LogUtils.i(tag, this?.toString() ?: NULL)
 }
+
 /**
  * Sends a WARNING log message with default TAG= LogUtils&#91;WARNING&#93;
  */
 fun Any?.toWarningLog() {
-    LogUtils.i(this?.toString() ?: NULL)
+    LogUtils.w(this?.toString() ?: NULL)
 }
 
 fun Any?.toWarningLog(tag: String) {
-    LogUtils.i(tag, this?.toString() ?: NULL)
+    LogUtils.w(tag, this?.toString() ?: NULL)
 }
 
 /**
