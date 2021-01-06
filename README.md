@@ -16,7 +16,7 @@ allprojects {
 Add below code in your app level build.gradle file.
 
 ```groovy
-implementation 'com.github.alterok:LogUtils:2.0.1'
+implementation 'com.github.alterok:LogUtils:2.1.2'
 ```
 ## 2. Usage
 * Normal Logging
