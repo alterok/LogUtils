@@ -3,25 +3,27 @@ package com.alterok.logutils
 import android.util.Log
 
 object LogUtils {
-    private const val TAG_VERBOSE = "LogUtils[VERBOSE]"
-    private const val TAG_DEBUG = "LogUtils[DEBUG]"
-    private const val TAG_INFO = "LogUtils[INFO]"
-    private const val TAG_WARNING = "LogUtils[WARNING]"
-    private const val TAG_ERROR = "LogUtils[ERROR]"
+    const val TAG_VERBOSE = "LogUtils[VERBOSE]"
+    const val TAG_DEBUG = "LogUtils[DEBUG]"
+    const val TAG_INFO = "LogUtils[INFO]"
+    const val TAG_WARNING = "LogUtils[WARNING]"
+    const val TAG_ERROR = "LogUtils[ERROR]"
 
-    var isLogging: Boolean = true
-        private set
+    private var isLogging: Boolean = true
 
-    var verbose: Boolean = true
-        private set
-    var debug: Boolean = true
-        private set
-    var info: Boolean = true
-        private set
-    var warning: Boolean = true
-        private set
-    var error: Boolean = true
-        private set
+    private var verbose: Boolean = true
+    private var debug: Boolean = true
+    private var info: Boolean = true
+    private var warning: Boolean = true
+    private var error: Boolean = true
+
+    fun isLoggingEnabled() = isLogging
+
+    fun isVerboseAllowed() = isLogging && verbose
+    fun isDebugAllowed() = isLogging && debug
+    fun isInfoAllowed() = isLogging && info
+    fun isWarningAllowed() = isLogging && warning
+    fun isErrorAllowed() = isLogging && error
 
     /**
      * Enable or disable the entire LogUtils logging functionality.
@@ -101,7 +103,7 @@ object LogUtils {
      * @param msg Info message
      */
     fun v(tag: String, msg: String) {
-        if (isLogging && verbose)
+        if (isVerboseAllowed())
             Log.v(tag, msg)
     }
 
@@ -120,7 +122,7 @@ object LogUtils {
      * @param msg Info message
      */
     fun d(tag: String, msg: String) {
-        if (isLogging && debug)
+        if (isDebugAllowed())
             Log.d(tag, msg)
     }
 
@@ -140,7 +142,7 @@ object LogUtils {
      * @param msg Info message
      */
     fun i(tag: String, msg: String) {
-        if (isLogging && info)
+        if (isInfoAllowed())
             Log.i(tag, msg)
     }
 
@@ -160,7 +162,7 @@ object LogUtils {
      * @param msg Warning message
      */
     fun w(tag: String, msg: String) {
-        if (isLogging && warning)
+        if (isWarningAllowed())
             Log.w(tag, msg)
     }
 
@@ -190,7 +192,7 @@ object LogUtils {
      * @param exception An exception to log(optional)
      */
     fun e(tag: String, msg: String, exception: Throwable? = null) {
-        if (isLogging && error)
+        if (isErrorAllowed())
             Log.e(tag, msg, exception)
     }
 }

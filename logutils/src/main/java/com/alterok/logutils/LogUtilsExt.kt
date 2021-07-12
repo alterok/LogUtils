@@ -14,6 +14,15 @@ fun Any?.toVerboseLog(tag: String) {
 }
 
 /**
+ * Sends a VERBOSE log message with default TAG= LogUtils&#91;VERBOSE&#93;
+ */
+inline fun logV(tag: String = LogUtils.TAG_VERBOSE, messageBlock: () -> String?) {
+    if (LogUtils.isVerboseAllowed()) {
+        LogUtils.v(tag, messageBlock().toString())
+    }
+}
+
+/**
  * Sends a DEBUG log message with default TAG= LogUtils&#91;DEBUG&#93;
  */
 fun Any?.toDebugLog() {
@@ -22,6 +31,12 @@ fun Any?.toDebugLog() {
 
 fun Any?.toDebugLog(tag: String) {
     LogUtils.d(tag, this?.toString() ?: NULL)
+}
+
+inline fun logD(tag: String = LogUtils.TAG_DEBUG, messageBlock: () -> String?) {
+    if (LogUtils.isDebugAllowed()) {
+        LogUtils.d(tag, messageBlock().toString())
+    }
 }
 
 /**
@@ -35,6 +50,12 @@ fun Any?.toInfoLog(tag: String) {
     LogUtils.i(tag, this?.toString() ?: NULL)
 }
 
+inline fun logI(tag: String = LogUtils.TAG_INFO, messageBlock: () -> String?) {
+    if (LogUtils.isInfoAllowed()) {
+        LogUtils.i(tag, messageBlock().toString())
+    }
+}
+
 /**
  * Sends a WARNING log message with default TAG= LogUtils&#91;WARNING&#93;
  */
@@ -44,6 +65,12 @@ fun Any?.toWarningLog() {
 
 fun Any?.toWarningLog(tag: String) {
     LogUtils.w(tag, this?.toString() ?: NULL)
+}
+
+inline fun logW(tag: String = LogUtils.TAG_WARNING, messageBlock: () -> String?) {
+    if (LogUtils.isWarningAllowed()) {
+        LogUtils.w(tag, messageBlock().toString())
+    }
 }
 
 /**
@@ -62,4 +89,14 @@ fun Throwable.toErrorLog() {
 
 fun Any?.toErrorLog(tag: String) {
     LogUtils.e(tag, this?.toString() ?: NULL)
+}
+
+inline fun logE(
+    tag: String = LogUtils.TAG_ERROR,
+    throwable: Throwable? = null,
+    messageBlock: () -> String?
+) {
+    if (LogUtils.isErrorAllowed()) {
+        LogUtils.e(tag, messageBlock().toString(), throwable)
+    }
 }
