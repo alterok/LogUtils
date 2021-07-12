@@ -25,7 +25,7 @@ LogUtils.v(TAG, "verbose log")               //TAG is optional; default TAG is L
 LogUtils.d(TAG, "debug log")                 //TAG is optional; default TAG is LogUtils[DEBUG]
 LogUtils.i(TAG, "info log")                  //TAG is optional; default TAG is LogUtils[INFO]
 LogUtils.w(TAG, "warning log")               //TAG is optional; default TAG is LogUtils[WARNING]
-LogUtils.e(TAG, "error log")                 //TAG is optional; default TAG is LogUtils[ERROR]
+LogUtils.e(TAG, "error log", throwable)      //TAG is optional; default TAG is LogUtils[ERROR], throwable is optional
 ```
 
 * Using Extension Functions(usable on any Nullable Object)
@@ -35,6 +35,29 @@ obj.toDebugLog()                             //default TAG is LogUtils[DEBUG]
 obj.toInfoLog()                              //default TAG is LogUtils[INFO]
 obj.toWarningLog()                           //default TAG is LogUtils[WARNING]
 obj.toErrorLog()                             //default TAG is LogUtils[ERROR]
+```
+
+* Using Higher-Order Functions
+```kotlin
+logV{
+   "Verbose Msg"
+}                                  //default TAG is LogUtils[VERBOSE]
+
+logD{
+   "Debug Msg"
+}                                  //default TAG is LogUtils[DEBUG]
+
+logI{
+   "Info Msg"
+}                                  //default TAG is LogUtils[INFO]
+
+logW{
+   "Warning Msg"
+}                                  //default TAG is LogUtils[WARNING]
+
+logE{
+   "Error Msg"
+}                                  //default TAG is LogUtils[ERROR]
 ```
 
 ## 3. Optional but recommended
