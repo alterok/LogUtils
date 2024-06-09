@@ -1,3 +1,4 @@
 rootProject.name='LogUtils'
 include ':app'
 include ':logutils'
+include ':app:logutils'
