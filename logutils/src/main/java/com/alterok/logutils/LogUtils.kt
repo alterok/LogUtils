@@ -142,13 +142,32 @@ object LogUtils {
      * @param msg Info message
      */
     fun i(tag: String, msg: String) {
+        Log.i(tag, msg)
+    }
+
+    /**
+     * Sends a INFO log message with default TAG= [LogUtils.TAG_INFO];
+     * @param exception An exception to log
+     */
+    fun i(exception: Throwable) {
+        i(TAG_INFO, "", exception)
+    }
+
+    /**
+     * Sends a INFO log message.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg Info message
+     * @param exception Exception encountered
+     */
+    fun i(tag: String, msg: String, exception: Throwable? = null) {
         if (isInfoAllowed())
-            Log.i(tag, msg)
+            Log.i(tag, msg, exception)
     }
 
 
     /**
-     * Sends a WARNING log message with default TAG= LogUtils&#91;WARNING&#93;
+     * Sends a WARNING log message with default TAG= [LogUtils.TAG_WARNING];
      * @param msg Warning message
      */
     fun w(msg: String) {
@@ -162,8 +181,27 @@ object LogUtils {
      * @param msg Warning message
      */
     fun w(tag: String, msg: String) {
+        Log.w(tag, msg, null)
+    }
+
+    /**
+     * Sends a WARNING log message with default TAG= [LogUtils.TAG_WARNING];
+     * @param exception An exception to log
+     */
+    fun w(exception: Throwable) {
+        w(TAG_WARNING, "", exception)
+    }
+
+    /**
+     * Sends a WARNING log message.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg Warning message
+     * @param exception exception encountered
+     */
+    fun w(tag: String, msg: String, exception: Throwable? = null) {
         if (isWarningAllowed())
-            Log.w(tag, msg)
+            Log.w(tag, msg, exception)
     }
 
 
@@ -177,7 +215,7 @@ object LogUtils {
     }
 
     /**
-     * Sends a ERROR log message with default TAG= LogUtils&#91;ERROR&#93;
+     * Sends a ERROR log message with default TAG= [LogUtils.TAG_ERROR];
      * @param exception An exception to log
      */
     fun e(exception: Throwable) {
